@@ -19,6 +19,13 @@
             }
         </style>
         <script>
+            // 効果音の再生関数（効果音ファイルを引数で指定）
+            function playSound(audioFile) {
+                var audio = new Audio();
+                audio.src = audioFile;  // 効果音ファイルのパス
+                audio.play();
+            }
+
             // timer処理
             $(function(){
                 setInterval(function(){
@@ -26,29 +33,34 @@
                 }, 500);
             });
 
-            // ready クリックの処理の登録
+            // 各ボタンのクリックイベントにそれぞれ異なる効果音を設定
             $(function() {
                 $('#date').click(function(e) {
                     setDebugMode(e);
                 });
 
                 $('#btnA').click(function(e) {
+                    playSound('btnA.mp3'); // btnAの効果音
                     btnAClick(e);
                 });
 
                 $('#btnB').click(function(e) {
+                    playSound('btnB.mp3'); // btnBの効果音
                     btnBClick(e);
                 });
 
                 $('#btnC').click(function(e) {
+                    playSound('btnC.mp3'); // btnCの効果音
                     btnCClick(e);
                 });
 
                 $('#btnD').click(function(e) {
+                    playSound('btnD.mp3'); // btnDの効果音
                     btnDClick(e);
                 });
 
                 $('#btnE').click(function(e) {
+                    playSound('btnE.mp3'); // btnEの効果音
                     btnEClick(e); // 3時間のタイマー
                 });
 
