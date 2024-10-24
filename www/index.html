@@ -162,6 +162,8 @@
                 var period = 0;
                 var rest = 0;
                 var etime = 0;
+                var remainingRest = 0;
+
 
 
 
@@ -200,7 +202,9 @@
                 // ButtonBがクリックされた時の処理
                 function btnBClick(e){
                     active = false;
-
+                    remainingRest = rest;
+                    $('#btnResume').prop('disabled', false);
+                    
                 }
 
                 // ButtonCがクリックされた時の処理
