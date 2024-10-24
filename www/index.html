@@ -172,8 +172,7 @@
                     $('#btnA').prop('disabled', false);
                     $('#btnB').prop('disabled', false);
                     $('#btnC').prop('disabled', false);
-                    $('#btnResume').prop('disabled', true);
-
+                    $('#btnD').prop('disabled', true);
                     btnCClick(null);
                 }
 
@@ -196,7 +195,7 @@
                 function btnAClick(e){
                     active = true;
                     startTime = new Date();
-
+                    period = 60 * parseInt($("#minute").val()) + parseInt($("#second").val());
                     $("buttonA").prop("disabled", true);
                 }
 
@@ -204,7 +203,7 @@
                 function btnBClick(e){
                     active = false;
                     remainingRest = rest;
-                    $('#btnResume').prop('disabled', false);
+                    $('#btnD').prop('disabled', false);
                     
                 }
 
@@ -224,7 +223,7 @@
                         active = true;
                         startTime = new Date();
                         period = remainingRest;
-                        $('#btnResume').prop('disabled', true);
+                        $('#btnD').prop('disabled', true);
                         $('#btnA').prop('disabled', true);
                     }
                 }
