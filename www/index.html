@@ -45,6 +45,9 @@
                     $('#btnC').click(function(e) {
                         btnCClick(e);
                     });
+                    $('#btnD').click(function(e) {
+                        btnDClick(e);
+                    });
                     init();
                 });
 
@@ -148,13 +151,9 @@
                     var m = parseInt((rest-h*3600)/60);
                     var s = parseInt(rest-h*3600-m*60);
                     clock(h,m,s,true);
-
                 }
 
-
-
             // これより上は編集しなくて良い
-
 
                 // 変数宣言
                 var active = false;
@@ -163,9 +162,6 @@
                 var rest = 0;
                 var etime = 0;
                 var remainingRest = 0;
-
-
-
 
                 // ボタンの初期設定
                 function init(){
@@ -191,12 +187,11 @@
                     audio.play();
                 }
 
-                // ButtonAがクリックされた時の処理
+                // ButtonAがクリックされた時の処理 (Start)
                 function btnAClick(e){
                     active = true;
                     startTime = new Date();
-                    period = 60 * parseInt($("#minute").val()) + parseInt($("#second").val());
-                    $("buttonA").prop("disabled", true);
+                    $('#btnA').prop('disabled', true); // Disable start button
                 }
 
                 // ButtonBがクリックされた時の処理
@@ -204,52 +199,49 @@
                     active = false;
                     remainingRest = rest;
                     $('#btnD').prop('disabled', false);
-                    
                 }
 
                 // ButtonCがクリックされた時の処理
                 function btnCClick(e){
                     alarm();
-
                     active = false;
-                    period = 60* parseInt( $("#minute").val() ) + parseInt( $("#second").val() );
+                    period = 60 * parseInt($("#minute").val()) + parseInt($("#second").val());
                     $("#time").html("経過時間： 0");
                     $("#remain").html("残り時間： " + period);
-
+                    remainingRest = 0;
                 }
 
+                // ButtonDがクリックされた時の処理 (Restart)
                 function btnDClick(e) {
                     if (remainingRest > 0) {
                         active = true;
                         startTime = new Date();
                         period = remainingRest;
-                        $('#btnD').prop('disabled', true);
-                        $('#btnA').prop('disabled', true);
+                        $('#btnD').prop('disabled', true); // Disable restart button
+                        $('#btnA').prop('disabled', true); // Disable start button
                     }
                 }
-
-
 
                 // 繰り返し実行する処理
                 function timer(){
                     if (active) {
-                        etime = parseInt( (new Date() - startTime)/1000 );
-                        rest = period - etime;
+                        etime = parseInt((new Date() - startTime) / 1000); // Calculate elapsed time
+                        rest = period - etime; // Calculate remaining time
                         $("#time").html("経過時間： " + etime);
                         $("#remain").html("残り時間： " + rest);
                         analog(rest);
 
-                        if(rest <= 0){
-                        active = false;
-                        alarm();
+                        if (rest <= 0) {
+                            active = false;
+                            alarm();
+                            $('#btnD').prop('disabled', true); // Disable restart button if time is up
                         }
 
-                        var m = parseInt(rest/60);
-                        var s = parseint(rest - m*60);
+                        var m = parseInt(rest / 60);
+                        var s = parseInt(rest - m * 60);
 
                         $("#time").html("経過時間： " + etime);
-                        $("#remain").html("残り時間： " + rest + "秒"+"("+m+":"+s+")");
-
+                        $("#remain").html("残り時間： " + rest + "秒 (" + m + ":" + s + ")");
                     }
                 }
         </script>
@@ -265,7 +257,7 @@
         <button id="btnA">Start</button>
         <button id="btnB">Stop</button>
         <button id="btnC">Set</button>
-        <button id="btnD">ReStart</button>
+        <button id="btnD" disabled>Restart</button> <!-- Initially disabled -->
         <input type="number" id="minute" value="0" />
         <input type="number" id="second" value="15" />
     </body>
